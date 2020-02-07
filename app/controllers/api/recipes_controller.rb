@@ -15,11 +15,12 @@ class Api::RecipesController < ApplicationController
 
     def create
       @recipe = Recipe.new(
-                          user_id: current_user.id,  
+                          user_id: 2, #current_user.id,  
                           title: params[:title],
                           ingredients: params[:ingredients],
                           directions: params[:directions], 
-                          prep_time: params[:prep_time]
+                          prep_time: params[:prep_time],
+                          image_url: params[:image_url]
                           )
       @recipe.save
       render 'show.json.jb'
@@ -34,10 +35,10 @@ class Api::RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
 
       @recipe.title = params[:title] || @recipe.title 
-      @recipe.chef = params[:chef] || @recipe.chef
       @recipe.ingredients = params[:ingredients] || @recipe.ingredients
       @recipe.directions = params[:directions] || @recipe.directions
       @recipe.prep_time = params[:prep_time]  || @recipe.prep_time
+      @recipe.image_url = params[:image_url]  || @recipe.image_url
 
       @recipe.save
       render 'show.json.jb'
